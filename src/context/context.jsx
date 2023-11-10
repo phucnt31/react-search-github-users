@@ -9,7 +9,21 @@ const rootUrl = "https://api.github.com";
 const GitHubContext = createContext();
 
 export const GitHubProvider = ({ children }) => {
-  return <GitHubContext.Provider value={{}}>{children}</GitHubContext.Provider>;
+  const [githubUser, setGithubUser] = useState(mockUser);
+  const [repos, setRepos] = useState(mockRepos);
+  const [followers, setFollowers] = useState(mockFollowers);
+
+  return (
+    <GitHubContext.Provider
+      value={{
+        githubUser,
+        repos,
+        followers,
+      }}
+    >
+      {children}
+    </GitHubContext.Provider>
+  );
 };
 
 export const useGitHubContext = () => useContext(GitHubContext);
