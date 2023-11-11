@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Dashboard, Error, Login } from "./pages";
+import { Dashboard, Error, Login, PrivateRoute } from "./pages";
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact={true}>
+        <PrivateRoute path="/" exact={true}>
           <Dashboard />
-        </Route>
+        </PrivateRoute>
         <Route path="/login">
           <Login />
         </Route>
