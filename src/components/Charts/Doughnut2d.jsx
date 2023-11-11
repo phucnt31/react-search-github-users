@@ -71,7 +71,7 @@ const ChartComponent = ({ data }) => {
         theme: "candy",
       },
       // Chart Data
-      data: chartData,
+      data,
     },
   };
 
