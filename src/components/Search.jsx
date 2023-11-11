@@ -5,10 +5,13 @@ import { useGitHubContext } from "../context/context";
 
 const Search = () => {
   const [user, setUser] = useState("");
-  const { requests, error } = useGitHubContext();
+  const { requests, error, searchGithubUser } = useGitHubContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (user) {
+      searchGithubUser(user);
+    }
   };
 
   return (

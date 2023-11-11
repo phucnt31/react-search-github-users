@@ -18,6 +18,21 @@ export const GitHubProvider = ({ children }) => {
   // error
   const [error, setError] = useState({ show: false, msg: "" });
 
+  // search user
+  const searchGithubUser = async (user) => {
+    setError({ show: false, msg: "" });
+    try {
+      const resp = await axios.get(`${rootUrl}/users/${user}`);
+      if (resp) {
+        setGithubUser(resp.data);
+      } else {
+        setError({ show: true, msg: "there is no user with that username" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // check rate
   const checkRequests = async () => {
     try {
@@ -48,6 +63,7 @@ export const GitHubProvider = ({ children }) => {
         followers,
         requests,
         error,
+        searchGithubUser,
       }}
     >
       {children}
