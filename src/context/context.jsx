@@ -16,6 +16,8 @@ export const GitHubProvider = ({ children }) => {
   const [requests, setRequests] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   // error
+  const [error, setError] = useState({ show: false, msg: "" });
+
   // check rate
   const checkRequests = async () => {
     try {
@@ -25,13 +27,15 @@ export const GitHubProvider = ({ children }) => {
       } = resp.data;
       setRequests(remaining);
       if (remaining === 0) {
-        // throw an error
+        setError({
+          show: true,
+          msg: "sorry, you have exceeded your hourly rate limit!",
+        });
       }
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
     checkRequests();
   }, []);
@@ -43,6 +47,7 @@ export const GitHubProvider = ({ children }) => {
         repos,
         followers,
         requests,
+        error,
       }}
     >
       {children}
