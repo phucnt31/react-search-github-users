@@ -27,12 +27,20 @@ export const GitHubProvider = ({ children }) => {
       if (resp) {
         setGithubUser(resp.data);
         const { login, followers_url } = resp.data;
+        // repos
         const respRepos = await axios.get(
           `${rootUrl}/users/${login}/repos?per_page=100`
         );
-        setRepos(respRepos.data);
+        // followers
         const respFollowers = await axios.get(`${followers_url}?per_page=100`);
-        setFollowers(respFollowers.data);
+        // Wait for all promise to finish
+        const [repos, followers] = await Promise.allSettled([
+          respRepos,
+          respFollowers,
+        ]);
+        if (repos.status === "fulfilled") setRepos(repos.value.data);
+        if (followers.status === "fulfilled")
+          setFollowers(followers.value.data);
       } else {
         setError({ show: true, msg: "there is no user with that username" });
       }
