@@ -26,6 +26,13 @@ export const GitHubProvider = ({ children }) => {
       const resp = await axios.get(`${rootUrl}/users/${user}`);
       if (resp) {
         setGithubUser(resp.data);
+        const { login, followers_url } = resp.data;
+        const respRepos = await axios.get(
+          `${rootUrl}/users/${login}/repos?per_page=100`
+        );
+        setRepos(respRepos.data);
+        const respFollowers = await axios.get(`${followers_url}?per_page=100`);
+        setFollowers(respFollowers.data);
       } else {
         setError({ show: true, msg: "there is no user with that username" });
       }

@@ -21,9 +21,11 @@ const Repos = () => {
     return total;
   }, {});
   // sort by languages
-  const mostUsed = Object.values(languages).sort((a, b) => {
-    return b.value - a.value;
-  });
+  const mostUsed = Object.values(languages)
+    .sort((a, b) => {
+      return b.value - a.value;
+    })
+    .slice(0, 5);
 
   // sort by star
   const mostPopular = Object.values(languages)
