@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { GitHubProvider } from "./context/context.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
+// secreT2@
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Auth0Provider
