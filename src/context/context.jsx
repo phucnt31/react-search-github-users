@@ -22,6 +22,7 @@ export const GitHubProvider = ({ children }) => {
   const searchGithubUser = async (user) => {
     setError({ show: false, msg: "" });
     try {
+      setIsLoading(true);
       const resp = await axios.get(`${rootUrl}/users/${user}`);
       if (resp) {
         setGithubUser(resp.data);
@@ -31,6 +32,8 @@ export const GitHubProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    checkRequests();
+    setIsLoading(false);
   };
 
   // check rate
@@ -63,6 +66,7 @@ export const GitHubProvider = ({ children }) => {
         followers,
         requests,
         error,
+        isLoading,
         searchGithubUser,
       }}
     >
